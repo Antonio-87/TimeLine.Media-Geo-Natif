@@ -142,3 +142,47 @@ body {
     background-repeat: no-repeat;
     background-size: 75%;
 }
+
+form {
+    cursor: pointer;
+    position: absolute;
+    width: 40%;
+    height: 57%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2%;
+    border: 1.5px solid rgb(62, 57, 57);
+    border-radius: 15px;
+    background-color: white;
+    z-index: 1000;
+}
+
+.text-form {
+    margin-top: 0;
+}
+
+input {
+    width: 99%;
+    height: 15%;
+    outline: none;
+    border: 1.5px solid rgb(62, 57, 57);
+}
+
+.control-form {
+    display: flex;
+    flex-grow: 1;
+    justify-content: end;
+    margin-top: 4%;
+}
+
+.ok, .cancel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    height: 60px;
+    margin-left: 10%;
+    border: 1.5px solid rgb(62, 57, 57);
+    border-radius: 15px;
+}

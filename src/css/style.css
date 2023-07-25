@@ -19,8 +19,9 @@ body {
     width: 1.5%;
     height: 78%;
     left: 12%;
-    top: 12%;
+    top: 11.9%;
     border: 1.5px solid rgb(62, 57, 57);
+    z-index: 998;
 }
 
 .posts {
@@ -29,12 +30,12 @@ body {
     flex-direction: column;
     align-items: center;
     list-style: none;
-    width: 73%;
-    height: 80%;
+    width: 73.2%;
+    height: 80.5%;
     margin: 0;
-    padding: 0;
+    padding-left: 7%;
     padding-bottom: 2%;
-    left: 17%;
+    left: 10%;
     top: 5%;
     overflow-y: auto;
 }
@@ -42,8 +43,9 @@ body {
 .post {
     position: relative;
     display: flex;
-    width: 99%;
-    min-height: 15%;
+    flex-wrap: wrap;
+    width: 95.6%;
+    padding: 2%;
     border: 1.5px solid rgb(62, 57, 57);
     border-radius: 15px;
 }
@@ -56,12 +58,40 @@ body {
     position: absolute;
     width: 30px;
     height: 30px;
-    top: 20%;
-    left: -7.3%;
+    top: 25%;
+    left: -7.7%;
     border: 1.5px solid rgb(62, 57, 57);
     border-radius: 50%;
     background-color: white;
     z-index: 999;
+}
+
+.content, .audio, .video {
+    width: 80%;
+    height: auto;
+    top: 15%; 
+    left: 1.5%;
+    margin: 0;
+    border-radius: 15px;
+    line-height: 28px;
+}
+.time {
+    margin-left: 5.5%;
+}
+
+.geolocation {
+    margin-top: 2.5%;
+}
+
+.geolocation-icon {
+    width: 15px;
+    height: 15px;
+    margin-top: 2.8%;
+    margin-left: 1%;
+    background-image: url(../image/icons8-geolocation-66\ \(1\).png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .input-panel {

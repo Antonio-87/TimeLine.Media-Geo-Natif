@@ -2,3 +2,113 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.container {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 600px;
+    font-family:'Arial', sans-serif;
+    font-size: 20px;
+    color: rgb(62, 57, 57);
+}
+
+.ruler {
+    display: block;
+    position: absolute;
+    width: 1.5%;
+    height: 78%;
+    left: 12%;
+    top: 12%;
+    border: 1.5px solid rgb(62, 57, 57);
+}
+
+.posts {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    list-style: none;
+    width: 73%;
+    height: 80%;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 2%;
+    left: 17%;
+    top: 5%;
+    overflow-y: auto;
+}
+
+.post {
+    position: relative;
+    display: flex;
+    width: 99%;
+    min-height: 15%;
+    border: 1.5px solid rgb(62, 57, 57);
+    border-radius: 15px;
+}
+
+.post:nth-child(n+2) {
+    margin-top: 2%;
+}
+
+.ruler-mark {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 20%;
+    left: -7.3%;
+    border: 1.5px solid rgb(62, 57, 57);
+    border-radius: 50%;
+    background-color: white;
+    z-index: 999;
+}
+
+.input-panel {
+    position: absolute;
+    top: 90%;
+    left: 10%;
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 8.5%;
+    border: 1.5px solid rgb(62, 57, 57);
+}
+
+.input-post {
+    display: block;
+    padding: 0 5px;
+    width: 90%;
+    resize: none;
+    outline: none;
+    border: none;
+}
+
+.audio-check {
+    cursor: pointer;
+    display: block;
+    width: 35px;
+    height: 35px;
+    margin: 0.6% 1%;
+    border: 1.5px solid rgb(62, 57, 57);
+    border-radius: 50%;
+    background-image: url(../image/icons8-microphone-48.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+}
+
+.video-check {
+    cursor: pointer;
+    display: block;
+    width: 35px;
+    height: 35px;
+    margin: 0.6% 1%;
+    margin-right: 2%;
+    border: 1.5px solid rgb(62, 57, 57);
+    border-radius: 50%;
+    background-image: url(../image/icons8-videocamera-64.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 75%;
+}

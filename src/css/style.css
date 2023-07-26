@@ -144,7 +144,6 @@ body {
 }
 
 form {
-    cursor: pointer;
     position: absolute;
     width: 40%;
     height: 57%;
@@ -177,6 +176,7 @@ input {
 }
 
 .ok, .cancel {
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -185,4 +185,8 @@ input {
     margin-left: 10%;
     border: 1.5px solid rgb(62, 57, 57);
     border-radius: 15px;
+}
+
+.invisible {
+    display: none;
 }

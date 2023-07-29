@@ -1,7 +1,10 @@
+// import { parseCoordinates } from "./parseCoordinates";
+
 export default class FormGeolocation {
   #element;
   constructor(element) {
     this.#element = element;
+    this.coordinates = null;
   }
 
   #innerFormGelocation() {
@@ -34,7 +37,7 @@ export default class FormGeolocation {
     this.ok = this.#element.querySelector(".ok");
     this.cancel = this.#element.querySelector(".cancel");
 
-    this.input.addEventlistener("click", this.onClick);
+    // this.input.addEventlistener("click", this.onClick);
   }
 
   getGeolocation() {
@@ -66,13 +69,18 @@ export default class FormGeolocation {
     this.form.classlist.add("invisible");
   }
 
-  onClick = (e) => {
-    e.preventdefault();
-    const target = e.target;
-    if (target.classlist.contains("ok")) {
-    }
+  // onClick = (e) => {
+  //   e.preventdefault();
+  //   const target = e.target;
+  //   if (target.classlist.contains("ok")) {
+  //     this.coordinates = parseCoordinates(this.input.value);
+  //     if (this.coordinates) this.invisibleFormGelocation();
+  //     this.input.value = "";
+  //   }
 
-    if (target.classlist.contains("cancel")) {
-    }
-  };
+  //   if (target.classlist.contains("cancel")) {
+  //     this.invisibleFormGeolocation();
+  //     this.input.value = "";
+  //   }
+  // };
 }

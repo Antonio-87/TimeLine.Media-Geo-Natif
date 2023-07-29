@@ -26,7 +26,7 @@ export default class Timeline {
     this.audioCheck = this.#element.querySelector(".audio-check");
     this.videoCheck = this.#element.querySelector(".video-check");
 
-    this.#addPosts();
+    this.addPosts();
   }
 
   #removePosts() {
@@ -42,8 +42,8 @@ export default class Timeline {
     const html = `
         <li class="post">
             ${content}
-            <div class="time">14.03.19 19:40</div>
-            <div class="geolocation">[51.50851, -0.12572]</div>
+            <div class="time">${objectPost.time}</div>
+            <div class="geolocation">${objectPost.geolocation}</div>
             <div class="geolocation-icon"></div>
             <div class="ruler-mark"></div>
         </li>
@@ -51,19 +51,12 @@ export default class Timeline {
     return html;
   }
 
-  #addPosts() {
+  addPosts() {
     this.#removePosts();
+    if (this.postsList.length === 0) return;
     this.postsList.forEach((el) => {
       const postHtml = this.#innerHtmlPost(el);
       this.posts.insertAdjacentHTML("afterbegin", postHtml);
     });
   }
-
-  //   onSubmit = (e) => {
-  //     e.preventDefault();
-  //     const target = e.target;
-  //     if (target === this.inputPost) {
-  //       this.#posts.push({ content: this.inputPost.value });
-  //     }
-  //   };
 }

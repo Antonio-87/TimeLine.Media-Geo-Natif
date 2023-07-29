@@ -2,6 +2,7 @@ import FormGeolocation from "./FormGeolocation";
 import Posts from "./Posts";
 import Timeline from "./TimeLine";
 import { formatDate } from "./formatDate";
+import { parseCoordinates } from "./parseCoordinates";
 
 export default class Controller {
   #element;
@@ -22,18 +23,43 @@ export default class Controller {
     e.preventDefault();
     const target = e.target;
 
-    if (!this.#geolocation) {
+    if (!this.#geolocation && !this.#geolocation) {
       this.#formGelocation.visibleFormGelocation();
     }
 
     if (target === this.#timeLine.inputPost && this.#geolocation) {
       const time = formatDate(Date.now());
       Posts.postsList.push({
-        content: this.inputPost.value,
+        content: this.#timeLine.inputPost.value,
         time: time,
         geolocation: this.#geolocation,
       });
+
       console.log(Posts.postsList);
+
+      this.#timeLine.inputPost = "";
+      this.#timeLine.addPosts();
+    }
+  };
+
+  onClick = (e) => {
+    e.preventdefault();
+    const target = e.target;
+    if (target.classlist.contains("ok")) {
+      this.#formGelocation.coordinates = parseCoordinates(
+        this.#formGelocation.input.value
+      );
+      if (this.#formGelocation.coordinates) {
+        this.#timeLine.addPosts();
+        this.#formGelocation.invisibleFormGelocation();
+      }
+        
+      this.#formGelocation.input.value = "";
+    }
+
+    if (target.classlist.contains("cancel")) {
+      this.#formGelocation.invisibleFormGeolocation();
+      this.#formGelocation.input.value = "";
     }
   };
 }

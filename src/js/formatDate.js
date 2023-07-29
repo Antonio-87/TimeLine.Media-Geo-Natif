@@ -15,5 +15,3 @@ export function formatDate(timestamp) {
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
 }
-
-// module.exports = formatDate;

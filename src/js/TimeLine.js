@@ -34,16 +34,16 @@ export default class Timeline {
   }
 
   #innerHtmlPost(objectPost) {
-    const content = null;
-    if (objectPost.content) {
+    let content = null;
+    if (objectPost.text) {
       // eslint-disable-next-line no-const-assign
-      content = `<p class="content">${objectPost.content}</p>`;
+      content = `<p class="content">${objectPost.text}</p>`;
     }
     const html = `
         <li class="post">
             ${content}
             <div class="time">${objectPost.time}</div>
-            <div class="geolocation">${objectPost.geolocation}</div>
+            <div class="geolocation">[${objectPost.geolocation.latitude}, ${objectPost.geolocation.longitude}]</div>
             <div class="geolocation-icon"></div>
             <div class="ruler-mark"></div>
         </li>

@@ -1,12 +1,13 @@
 export function parseCoordinates(str) {
-  let lat, lng;
+  let latitude, longitude;
   const regex = /-?\d+\.(\d){5}/g;
   const matches = str.match(regex);
 
-  if (matches.length !== 2) return false;
+  if (!matches) return null;
+  if (matches.length !== 2) return null;
 
-  lat = parseFloat(matches[0]);
-  lng = parseFloat(matches[1]);
+  latitude = parseFloat(matches[0]);
+  longitude = parseFloat(matches[1]);
 
-  return { lat, lng };
+  return { latitude, longitude };
 }

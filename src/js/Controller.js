@@ -1,7 +1,6 @@
 import FormGeolocation from "./FormGeolocation";
 import Posts from "./Posts";
 import Timeline from "./TimeLine";
-import { formatDate } from "./formatDate";
 import { parseCoordinates } from "./parseCoordinates";
 
 export default class Controller {
@@ -16,48 +15,57 @@ export default class Controller {
     this.#timeLine.bindToDom();
     this.#formGelocation = new FormGeolocation(this.#element);
     this.#formGelocation.bindToDom();
-    this.#geolocation = this.#formGelocation.getGeolocation();
+    this.#geolocation = this.#formGelocation.getGeolocation((geo) => geo);
+
+    this.#timeLine.inputPost.addEventListener("keydown", this.onKeydown);
   }
 
-  onSubmit = (e) => {
-    e.preventDefault();
+  onKeydown = (e) => {
     const target = e.target;
 
-    if (!this.#geolocation && !this.#geolocation) {
-      this.#formGelocation.visibleFormGelocation();
-    }
-
-    if (target === this.#timeLine.inputPost && this.#geolocation) {
-      const time = formatDate(Date.now());
-      Posts.postsList.push({
-        content: this.#timeLine.inputPost.value,
-        time: time,
-        geolocation: this.#geolocation,
-      });
-
-      console.log(Posts.postsList);
-
-      this.#timeLine.inputPost = "";
-      this.#timeLine.addPosts();
+    if (e.keyCode === 13) {
+      if (target.value === "") return;
+      if (!e.ctrlKey) {
+        e.preventDefault();
+        if (this.#geolocation) {
+          console.log(this.#geolocation);
+          Posts.addPost(this.#timeLine.inputPost.value, this.#geolocation);
+          console.log(Posts.postsList);
+          this.#timeLine.addPosts();
+          target.value = "";
+        } else {
+          this.#formGelocation.visibleFormGelocation();
+        }
+      } else {
+        e.preventDefault();
+        const start = target.selectionStart;
+        const end = target.selectionEnd;
+        target.value =
+          target.value.substring(0, start) + "\n" + target.value.substring(end);
+        target.selectionStart = target.selectionEnd = start + 1;
+      }
     }
   };
 
   onClick = (e) => {
-    e.preventdefault();
     const target = e.target;
-    if (target.classlist.contains("ok")) {
-      this.#formGelocation.coordinates = parseCoordinates(
-        this.#formGelocation.input.value
-      );
-      if (this.#formGelocation.coordinates) {
+
+    if (target.classList.contains("ok")) {
+      const coordinates = parseCoordinates(this.#formGelocation.input.value);
+      if (coordinates) {
+        Posts.addPost(this.#timeLine.inputPost.value, coordinates);
         this.#timeLine.addPosts();
-        this.#formGelocation.invisibleFormGelocation();
+        this.#formGelocation.invisibleFormGeolocation();
+      } else {
+        this.#formGelocation.validation.classList.remove("invisible");
+        this.#formGelocation.input.value = "";
+        return;
       }
-        
       this.#formGelocation.input.value = "";
+      this.#timeLine.inputPost.value = "";
     }
 
-    if (target.classlist.contains("cancel")) {
+    if (target.classList.contains("cancel")) {
       this.#formGelocation.invisibleFormGeolocation();
       this.#formGelocation.input.value = "";
     }

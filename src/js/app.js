@@ -5,5 +5,5 @@ const container = document.querySelector(".container");
 document.addEventListener("DOMContentLoaded", () => {
   const controller = new Controller(container);
 
-  container.addEventListener("submit", controller.onSubmit);
+  container.addEventListener("click", controller.onClick);
 });

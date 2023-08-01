@@ -76,7 +76,7 @@ body {
     line-height: 28px;
 }
 .time {
-    margin-left: 5.5%;
+    margin-left: 4.6%;
 }
 
 .geolocation {
@@ -146,7 +146,6 @@ body {
 form {
     position: absolute;
     width: 40%;
-    height: 57%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -163,7 +162,7 @@ form {
 
 input {
     width: 99%;
-    height: 15%;
+    height: 50px;
     outline: none;
     border: 1.5px solid rgb(62, 57, 57);
 }
@@ -173,6 +172,10 @@ input {
     flex-grow: 1;
     justify-content: end;
     margin-top: 4%;
+}
+
+.validation {
+    color: red;
 }
 
 .ok, .cancel {

@@ -1,10 +1,7 @@
-// import { parseCoordinates } from "./parseCoordinates";
-
 export default class FormGeolocation {
   #element;
   constructor(element) {
     this.#element = element;
-    this.coordinates = null;
   }
 
   #innerFormGelocation() {
@@ -20,6 +17,7 @@ export default class FormGeolocation {
                 </p>
             </label>
             <input type="text" class="input-geolocation" id="input-geolocation">
+            <p class="validation">-Неверный формат</p>
             <div class="control-form">
                 <div class="ok">Ок</div>
                 <div class="cancel">Отмена</div>
@@ -36,51 +34,46 @@ export default class FormGeolocation {
     this.input = this.#element.querySelector(".input-geolocation");
     this.ok = this.#element.querySelector(".ok");
     this.cancel = this.#element.querySelector(".cancel");
+    this.validation = this.#element.querySelector(".validation");
 
-    // this.input.addEventlistener("click", this.onClick);
+    this.input.addEventListener("focus", this.onFocus);
   }
 
-  getGeolocation() {
+  getGeolocation(callback) {
+    let geolocation;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function (data) {
           const { latitude, longitude } = data.coords;
           console.log("lat " + latitude);
           console.log("long " + longitude);
-          return {
+          geolocation = {
             latitude: latitude,
             longitude: longitude,
           };
+          callback(geolocation);
         },
         function (err) {
           console.log(err);
-          return null;
+          geolocation = null;
+          callback(geolocation);
         },
         { enableHighAccuracy: true }
       );
+    } else {
+      callback(null);
     }
   }
 
   visibleFormGelocation() {
-    this.form.classlist.remove("invisible");
+    this.form.classList.remove("invisible");
   }
 
   invisibleFormGeolocation() {
-    this.form.classlist.add("invisible");
+    this.form.classList.add("invisible");
   }
 
-  // onClick = (e) => {
-  //   e.preventdefault();
-  //   const target = e.target;
-  //   if (target.classlist.contains("ok")) {
-  //     this.coordinates = parseCoordinates(this.input.value);
-  //     if (this.coordinates) this.invisibleFormGelocation();
-  //     this.input.value = "";
-  //   }
-
-  //   if (target.classlist.contains("cancel")) {
-  //     this.invisibleFormGeolocation();
-  //     this.input.value = "";
-  //   }
-  // };
+  onFocus = () => {
+    this.validation.classList.add("invisible");
+  };
 }

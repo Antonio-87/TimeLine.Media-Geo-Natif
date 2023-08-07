@@ -11,8 +11,10 @@ export default class Timeline {
         <ul class="posts"></ul>
         <div class="input-panel">
             <textarea class="input-post" placeholder="Введите текст"></textarea>
-            <div class="audio-check"></div>
-            <div class="video-check"></div>
+            <div class="panel-check">
+              <div class="audio-check"></div>
+              <div class="video-check"></div>
+            </div>
         </div>
     `;
   }
@@ -22,7 +24,9 @@ export default class Timeline {
     this.#element.insertAdjacentHTML("afterbegin", timeLineHtml);
 
     this.posts = this.#element.querySelector(".posts");
+    this.inputPanel = this.#element.querySelector(".input-panel");
     this.inputPost = this.#element.querySelector(".input-post");
+    this.panelCheck = this.#element.querySelector(".panel-check");
     this.audioCheck = this.#element.querySelector(".audio-check");
     this.videoCheck = this.#element.querySelector(".video-check");
 
@@ -58,5 +62,9 @@ export default class Timeline {
       const postHtml = this.#innerHtmlPost(el);
       this.posts.insertAdjacentHTML("afterbegin", postHtml);
     });
+  }
+
+  visiblePanelCheck() {
+    this.panelCheck.classList.toggle("invisible");
   }
 }

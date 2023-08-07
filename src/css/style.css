@@ -110,10 +110,17 @@ body {
 .input-post {
     display: block;
     padding: 0 5px;
-    width: 90%;
+    width: 85%;
     resize: none;
     outline: none;
     border: none;
+}
+.panel-check {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 13%;
+    margin: 0 3%;
 }
 
 .audio-check {
@@ -121,7 +128,6 @@ body {
     display: block;
     width: 35px;
     height: 35px;
-    margin: 0.6% 1%;
     border: 1.5px solid rgb(62, 57, 57);
     border-radius: 50%;
     background-image: url(../image/icons8-microphone-48.png);
@@ -135,14 +141,46 @@ body {
     display: block;
     width: 35px;
     height: 35px;
-    margin: 0.6% 1%;
-    margin-right: 2%;
     border: 1.5px solid rgb(62, 57, 57);
     border-radius: 50%;
     background-image: url(../image/icons8-videocamera-64.png);
     background-position: center;
     background-repeat: no-repeat;
     background-size: 75%;
+}
+
+.panel-record {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 13%;
+    margin: 0 3%;
+}
+
+.record {
+    cursor: pointer;
+    display: block;
+    width: 35px;
+    height: 35px;
+    border: 1.5px solid rgb(62, 57, 57);
+    border-radius: 50%;
+    background-image: url(../image/check.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70%;
+}
+
+.stop {
+    cursor: pointer;
+    display: block;
+    width: 35px;
+    height: 35px;
+    border: 1.5px solid rgb(62, 57, 57);
+    border-radius: 50%;
+    background-image: url(../image/close.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 55%;
 }
 
 form {

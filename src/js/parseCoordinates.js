@@ -1,6 +1,6 @@
 export function parseCoordinates(str) {
   let latitude, longitude;
-  const regex = /-?\d+\.(\d){5}/g;
+  const regex = /-?\d+\.(\d){5,}/g;
   const matches = str.match(regex);
 
   if (!matches) return null;

@@ -40,28 +40,22 @@ export default class FormGeolocation {
   }
 
   getGeolocation(callback) {
-    let geolocation;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         function (data) {
-          const { latitude, longitude } = data.coords;
-          console.log("lat " + latitude);
-          console.log("long " + longitude);
-          geolocation = {
-            latitude: latitude,
-            longitude: longitude,
-          };
-          callback(geolocation);
+          callback({
+            latitude: data.coords.latitude,
+            longitude: data.coords.longitude,
+          });
         },
         function (err) {
           console.log(err);
-          geolocation = null;
-          callback(geolocation);
+          callback(null);
         },
         { enableHighAccuracy: true }
       );
     } else {
-      callback(null);
+      return null;
     }
   }
 

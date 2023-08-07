@@ -5,13 +5,13 @@ export function formatDate(timestamp) {
   const year = date.getFullYear();
   const hours = date.getHours();
   const minutes = date.getMinutes();
-  if (month < 10 && hours < 10) {
-    return `${day}.0${month}.${year} 0${hours}:${minutes}`;
-  } else if (month < 10 && hours >= 10) {
-    return `${day}.0${month}.${year} ${hours}:${minutes}`;
-  } else if (month >= 10 && hours < 10) {
-    return `${day}.${month}.${year} 0${hours}:${minutes}`;
-  } else {
-    return `${day}.${month}.${year} ${hours}:${minutes}`;
+
+  const timelist = [day, month, year, hours, minutes];
+  for (let item in timelist) {
+    console.log(item);
+    timelist[item] < 10
+      ? (timelist[item] = `0${timelist[item]}`)
+      : (timelist[item] = `${timelist[item]}`);
   }
+  return `${timelist[0]}.${timelist[1]}.${timelist[2]} ${timelist[3]}:${timelist[4]}`;
 }

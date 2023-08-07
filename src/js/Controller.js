@@ -15,27 +15,27 @@ export default class Controller {
     this.#timeLine.bindToDom();
     this.#formGelocation = new FormGeolocation(this.#element);
     this.#formGelocation.bindToDom();
-    this.#geolocation = this.#formGelocation.getGeolocation((geo) => geo);
 
     this.#timeLine.inputPost.addEventListener("keydown", this.onKeydown);
   }
 
   onKeydown = (e) => {
     const target = e.target;
-
     if (e.keyCode === 13) {
       if (target.value === "") return;
       if (!e.ctrlKey) {
         e.preventDefault();
-        if (this.#geolocation) {
-          console.log(this.#geolocation);
-          Posts.addPost(this.#timeLine.inputPost.value, this.#geolocation);
-          console.log(Posts.postsList);
-          this.#timeLine.addPosts();
-          target.value = "";
-        } else {
-          this.#formGelocation.visibleFormGelocation();
-        }
+        this.#formGelocation.getGeolocation((position) => {
+          if (position) {
+            console.log(position);
+            Posts.addPost(this.#timeLine.inputPost.value, position);
+            console.log(Posts.postsList);
+            this.#timeLine.addPosts();
+            target.value = "";
+          } else {
+            this.#formGelocation.visibleFormGelocation();
+          }
+        });
       } else {
         e.preventDefault();
         const start = target.selectionStart;

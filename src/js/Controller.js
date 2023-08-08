@@ -1,6 +1,6 @@
-import Audio from "./Audio";
 import FormGeolocation from "./FormGeolocation";
 import Posts from "./Posts";
+import Record from "./Record";
 import Timeline from "./TimeLine";
 import { parseCoordinates } from "./parseCoordinates";
 
@@ -8,7 +8,7 @@ export default class Controller {
   #element;
   #timeLine;
   #formGeolocation;
-  #audio;
+  #record;
   constructor(element) {
     this.#element = element;
     this.#timeLine = new Timeline(this.#element);
@@ -16,8 +16,8 @@ export default class Controller {
     this.#timeLine.bindToDom();
     this.#formGeolocation = new FormGeolocation(this.#element);
     this.#formGeolocation.bindToDom();
-    this.#audio = new Audio(this.#timeLine.inputPanel);
-    this.#audio.bindToDom();
+    this.#record = new Record(this.#timeLine.inputPanel);
+    this.#record.bindToDom();
 
     this.#timeLine.inputPost.addEventListener("keydown", this.onKeydown);
   }
@@ -56,8 +56,18 @@ export default class Controller {
     if (target.classList.contains("ok")) {
       const coordinates = parseCoordinates(this.#formGeolocation.input.value);
       if (coordinates) {
-        Posts.addPost(this.#timeLine.inputPost.value, coordinates);
+        if (this.#timeLine.inputPost.value !== "") {
+          Posts.addPost(this.#timeLine.inputPost.value, coordinates);
+        }
+        if (this.#timeLine.inputPost.value === "") {
+          this.#record.recorder.addEventListener("dataavailable", (event) => {
+            Posts.addPost(event.data, coordinates);
+            this.#timeLine.addPosts();
+          });
+        }
         this.#timeLine.addPosts();
+        this.#record.recorder.stop();
+        this.#record.stream.getTracks().forEach((track) => track.stop());
         this.#formGeolocation.invisibleFormGeolocation();
       } else {
         this.#formGeolocation.validation.classList.remove("invisible");
@@ -75,12 +85,44 @@ export default class Controller {
 
     if (target.classList.contains("audio-check")) {
       this.#timeLine.visiblePanelCheck();
-      this.#audio.visiblePanelRecord();
+      this.#record.visiblePanelRecord();
+
+      this.#record.stopwatch();
+      this.#record.recordAudio();
+    }
+
+    if (target.classList.contains("record")) {
+      this.#timeLine.inputPost.value !== "";
+      this.#record.timeRecord.textContent = "00:00";
+      clearInterval(this.#record.idSetInterval);
+      this.#timeLine.visiblePanelCheck();
+      this.#record.visiblePanelRecord();
+
+      this.#formGeolocation.getGeolocation((position) => {
+        if (position) {
+          console.log(position);
+          this.#record.recorder.addEventListener("dataavailable", (event) => {
+            console.log(event.data);
+            Posts.addPost(event.data, position);
+            console.log(Posts.postsList);
+            this.#timeLine.addPosts();
+          });
+          this.#record.recorder.stop();
+          this.#record.stream.getTracks().forEach((track) => track.stop());
+        } else {
+          this.#formGeolocation.visibleFormGelocation();
+        }
+      });
     }
 
     if (target.classList.contains("stop")) {
+      this.#record.timeRecord.textContent = "00:00";
+      clearInterval(this.#record.idSetInterval);
       this.#timeLine.visiblePanelCheck();
-      this.#audio.visiblePanelRecord();
+      this.#record.visiblePanelRecord();
+
+      this.#record.recorder.stop();
+      this.#record.stream.getTracks().forEach((track) => track.stop());
     }
   };
 }

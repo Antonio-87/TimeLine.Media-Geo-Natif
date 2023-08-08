@@ -40,8 +40,12 @@ export default class Timeline {
   #innerHtmlPost(objectPost) {
     let content = null;
     if (objectPost.text) {
-      // eslint-disable-next-line no-const-assign
       content = `<p class="content">${objectPost.text}</p>`;
+    }
+    if (objectPost.audio) {
+      content = `<audio class="audio" controls src="${URL.createObjectURL(
+        objectPost.audio
+      )}"></audio>`;
     }
     const html = `
         <li class="post">

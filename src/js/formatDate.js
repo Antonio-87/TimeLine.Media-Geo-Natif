@@ -8,7 +8,6 @@ export function formatDate(timestamp) {
 
   const timelist = [day, month, year, hours, minutes];
   for (let item in timelist) {
-    console.log(item);
     timelist[item] < 10
       ? (timelist[item] = `0${timelist[item]}`)
       : (timelist[item] = `${timelist[item]}`);

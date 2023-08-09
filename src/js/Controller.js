@@ -87,7 +87,6 @@ export default class Controller {
       this.#timeLine.visiblePanelCheck();
       this.#record.visiblePanelRecord();
 
-      this.#record.stopwatch();
       this.#record.recordAudio();
     }
 

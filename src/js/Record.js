@@ -50,19 +50,46 @@ export default class Record {
   }
 
   recordAudio = async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-    });
+    navigator.mediaDevices
+      .getUserMedia({
+        audio: true,
+      })
+      .then((stream) => {
+        this.popap.remove();
+        this.stream = stream;
+        this.recorder = new MediaRecorder(this.stream);
 
-    if (stream) {
-      this.stream = stream;
-      this.recorder = new MediaRecorder(this.stream);
+        this.recorder.addEventListener("start", () => {
+          console.log("start");
+        });
 
-      this.recorder.addEventListener("start", () => {
-        console.log("start");
+        this.recorder.start();
+        this.stopwatch();
+      })
+      .catch((error) => {
+        console.log("Ошибка:" + error.message);
+        this.messageNotStrim();
       });
-
-      this.recorder.start();
-    }
   };
+  messageNotStrim() {
+    const popap = document.createElement("div");
+    popap.textContent = "API недоступно, либо пользователь не выдал прав!";
+    popap.style.cssText = `
+      font-family:'Arial', sans-serif;
+      font-size: 25px;
+      color: gray;
+      position: absolute;
+      width: 40%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 2%;
+      border: 1.5px solid rgb(62, 57, 57);
+      border-radius: 15px;
+      background-color: white;
+      z-index: 1000;
+    `;
+    document.body.appendChild(popap);
+    this.popap = popap;
+  }
 }

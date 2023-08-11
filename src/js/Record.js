@@ -49,13 +49,15 @@ export default class Record {
     }, 1000);
   }
 
-  recordAudio = async () => {
+  recordAudioAndVideo = async (audio = true, video = true) => {
+    const constraints = {
+      audio: audio,
+      video: video,
+    };
     navigator.mediaDevices
-      .getUserMedia({
-        audio: true,
-      })
+      .getUserMedia(constraints)
       .then((stream) => {
-        this.popap.remove();
+        if (this.popap) this.popap.remove();
         this.stream = stream;
         this.recorder = new MediaRecorder(this.stream);
 
@@ -71,6 +73,7 @@ export default class Record {
         this.messageNotStrim();
       });
   };
+
   messageNotStrim() {
     const popap = document.createElement("div");
     popap.textContent = "API недоступно, либо пользователь не выдал прав!";

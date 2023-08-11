@@ -31,7 +31,6 @@ body {
     align-items: center;
     list-style: none;
     width: 73.2%;
-    height: 80.5%;
     margin: 0;
     padding-left: 7%;
     padding-bottom: 2%;
@@ -68,13 +67,19 @@ body {
 
 .content, .audio, .video {
     width: 78.8%;
-    height: auto;
     top: 15%; 
     left: 1.5%;
     margin: 0;
     border-radius: 15px;
     line-height: 28px;
 }
+
+.video {
+    height: 50%;
+    width: 50%;
+    margin-right: 30%;
+}
+
 .time {
     font-size: 16px;
     margin-left: 4.6%;

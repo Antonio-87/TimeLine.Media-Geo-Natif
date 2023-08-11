@@ -84,10 +84,17 @@ export default class Controller {
     }
 
     if (target.classList.contains("audio-check")) {
+      this.#record.recordAudioAndVideo(true, false);
+      if (!this.#record.stream) return;
       this.#timeLine.visiblePanelCheck();
       this.#record.visiblePanelRecord();
+    }
 
-      this.#record.recordAudio();
+    if (target.classList.contains("video-check")) {
+      this.#record.recordAudioAndVideo(true, true);
+      if (!this.#record.stream) return;
+      this.#timeLine.visiblePanelCheck();
+      this.#record.visiblePanelRecord();
     }
 
     if (target.classList.contains("record")) {

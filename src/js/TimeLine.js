@@ -41,12 +41,16 @@ export default class Timeline {
     let content = null;
     if (objectPost.text) {
       content = `<p class="content">${objectPost.text}</p>`;
-    }
-    if (objectPost.audio) {
+    } else if (objectPost.audio) {
       content = `<audio class="audio" controls src="${URL.createObjectURL(
         objectPost.audio
       )}"></audio>`;
+    } else if (objectPost.video) {
+      content = `<video class="video" controls src="${URL.createObjectURL(
+        objectPost.video
+      )}"></video>`;
     }
+
     const html = `
         <li class="post">
             ${content}

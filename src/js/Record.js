@@ -6,6 +6,10 @@ export default class Record {
     this.idSetInterval;
     this.stream;
     this.recorder;
+    this.popap;
+    this.videoWindow;
+
+    this.panelCheck;
   }
 
   #innerHtmlAudio() {
@@ -67,10 +71,23 @@ export default class Record {
 
         this.recorder.start();
         this.stopwatch();
+        this.visiblePanelRecord();
+        this.panelCheck.classList.toggle("invisible");
+
+        if (video === true) {
+          this.videoRecordingWindow();
+          const video = this.videoWindow.querySelector("video");
+          video.srcObject = stream;
+
+          video.addEventListener("canplay", () => {
+            video.play();
+          });
+        }
       })
       .catch((error) => {
         console.log("Ошибка:" + error.message);
         this.messageNotStrim();
+        this.videoWindow.remove();
       });
   };
 
@@ -80,19 +97,46 @@ export default class Record {
     popap.style.cssText = `
       font-family:'Arial', sans-serif;
       font-size: 25px;
-      color: gray;
+      text-align: center;
+      line-height: 250%;
+      color: red;
       position: absolute;
       width: 40%;
+      min-height: 20%;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       padding: 2%;
-      border: 1.5px solid rgb(62, 57, 57);
+      border: 1.5px solid red;
       border-radius: 15px;
       background-color: white;
       z-index: 1000;
     `;
     document.body.appendChild(popap);
     this.popap = popap;
+  }
+
+  videoRecordingWindow() {
+    const videoWindow = document.createElement("div");
+    videoWindow.innerHTML = `
+      <div class="container-video">
+        <video class="video-window" muted = true></video>
+      </div>
+    `;
+    videoWindow.style.cssText = `
+      position: absolute;
+      width: 76%;
+      height: 73.4%;
+      top: 4.8%;
+      left: 10%;
+      padding: 2%;
+      border: 1.5px solid rgb(62, 57, 57);
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      background-color: white;
+      z-index: 1000;
+    `;
+    document.body.appendChild(videoWindow);
+    this.videoWindow = videoWindow;
   }
 }

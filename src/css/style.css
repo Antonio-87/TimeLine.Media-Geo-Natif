@@ -31,6 +31,7 @@ body {
     align-items: center;
     list-style: none;
     width: 73.2%;
+    height: 80.5%;
     margin: 0;
     padding-left: 7%;
     padding-bottom: 2%;
@@ -65,19 +66,28 @@ body {
     z-index: 999;
 }
 
-.content, .audio, .video {
+.content, .audio, .videoblock {
     width: 78.8%;
-    top: 15%; 
-    left: 1.5%;
     margin: 0;
     border-radius: 15px;
     line-height: 28px;
 }
 
 .video {
-    height: 50%;
     width: 50%;
-    margin-right: 30%;
+    border-radius: 15px;
+}
+
+.container-video {
+    width: 100%;
+    height: 100%;
+}
+
+.video-window {
+    width: 600px;
+    height: 100%;
+    margin-left: 20%;
+    border-radius: 15px;
 }
 
 .time {

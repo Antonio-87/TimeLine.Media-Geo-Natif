@@ -19,6 +19,8 @@ export default class Controller {
     this.#record = new Record(this.#timeLine.inputPanel);
     this.#record.bindToDom();
 
+    this.#record.panelCheck = this.#timeLine.panelCheck;
+
     this.#timeLine.inputPost.addEventListener("keydown", this.onKeydown);
   }
 
@@ -84,17 +86,13 @@ export default class Controller {
     }
 
     if (target.classList.contains("audio-check")) {
+      if (this.#record.popap) this.#record.popap.remove();
       this.#record.recordAudioAndVideo(true, false);
-      if (!this.#record.stream) return;
-      this.#timeLine.visiblePanelCheck();
-      this.#record.visiblePanelRecord();
     }
 
     if (target.classList.contains("video-check")) {
-      this.#record.recordAudioAndVideo(true, true);
-      if (!this.#record.stream) return;
-      this.#timeLine.visiblePanelCheck();
-      this.#record.visiblePanelRecord();
+      if (this.#record.popap) this.#record.popap.remove();
+      this.#record.recordAudioAndVideo(true);
     }
 
     if (target.classList.contains("record")) {
@@ -103,6 +101,7 @@ export default class Controller {
       clearInterval(this.#record.idSetInterval);
       this.#timeLine.visiblePanelCheck();
       this.#record.visiblePanelRecord();
+      if (this.#record.videoWindow) this.#record.videoWindow.remove();
 
       this.#formGeolocation.getGeolocation((position) => {
         if (position) {
@@ -126,6 +125,7 @@ export default class Controller {
       clearInterval(this.#record.idSetInterval);
       this.#timeLine.visiblePanelCheck();
       this.#record.visiblePanelRecord();
+      if (this.#record.videoWindow) this.#record.videoWindow.remove();
 
       this.#record.recorder.stop();
       this.#record.stream.getTracks().forEach((track) => track.stop());

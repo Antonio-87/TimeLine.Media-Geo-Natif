@@ -46,9 +46,11 @@ export default class Timeline {
         objectPost.audio
       )}"></audio>`;
     } else if (objectPost.video) {
-      content = `<video class="video" controls src="${URL.createObjectURL(
-        objectPost.video
-      )}"></video>`;
+      content = `<div class="videoblock">
+        <video class="video" controls src="${URL.createObjectURL(
+          objectPost.video
+        )}"></video>
+      </div>`;
     }
 
     const html = `

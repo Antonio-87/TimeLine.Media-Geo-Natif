@@ -87,7 +87,7 @@ export default class Record {
       .catch((error) => {
         console.log("Ошибка:" + error.message);
         this.messageNotStrim();
-        this.videoWindow.remove();
+        if (this.videoWindow) this.videoWindow.remove();
       });
   };
 

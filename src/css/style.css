@@ -248,16 +248,3 @@ input {
 .invisible {
     display: none;
 }
-
-/* .popap {
-    position: absolute;
-    width: 40%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2%;
-    border: 1.5px solid rgb(62, 57, 57);
-    border-radius: 15px;
-    background-color: white;
-    z-index: 1000;
-} */

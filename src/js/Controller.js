@@ -60,16 +60,16 @@ export default class Controller {
       if (coordinates) {
         if (this.#timeLine.inputPost.value !== "") {
           Posts.addPost(this.#timeLine.inputPost.value, coordinates);
+          this.#timeLine.addPosts();
         }
         if (this.#timeLine.inputPost.value === "") {
+          this.#record.recorder.stop();
+          this.#record.stream.getTracks().forEach((track) => track.stop());
           this.#record.recorder.addEventListener("dataavailable", (event) => {
             Posts.addPost(event.data, coordinates);
             this.#timeLine.addPosts();
           });
         }
-        this.#timeLine.addPosts();
-        this.#record.recorder.stop();
-        this.#record.stream.getTracks().forEach((track) => track.stop());
         this.#formGeolocation.invisibleFormGeolocation();
       } else {
         this.#formGeolocation.validation.classList.remove("invisible");
@@ -86,17 +86,19 @@ export default class Controller {
     }
 
     if (target.classList.contains("audio-check")) {
+      this.#timeLine.inputPost.value = "";
       if (this.#record.popap) this.#record.popap.remove();
       this.#record.recordAudioAndVideo(true, false);
     }
 
     if (target.classList.contains("video-check")) {
+      this.#timeLine.inputPost.value = "";
       if (this.#record.popap) this.#record.popap.remove();
       this.#record.recordAudioAndVideo(true);
     }
 
     if (target.classList.contains("record")) {
-      this.#timeLine.inputPost.value !== "";
+      this.#timeLine.inputPost.value = "";
       this.#record.timeRecord.textContent = "00:00";
       clearInterval(this.#record.idSetInterval);
       this.#timeLine.visiblePanelCheck();
